@@ -1,0 +1,7 @@
+<%#= @consultant.company_id %>
+<%= form_for(@consultant) do |f| %>
+  <%= f.hidden_field :company_id, :value => @consultant.company_id %>
+  <%= f.select :user_id, @users.collect {|user|
+  	  [user.full_name, user.id]}, {}, {multiple: false} %>
+  <%= f.submit "Add Consultant" %>
+<% end %>

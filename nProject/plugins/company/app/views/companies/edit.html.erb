@@ -1,0 +1,11 @@
+<h1>Editing Company</h1>
+
+
+<%= render 'form' %>
+
+
+<%#= link_to 'Show', @company %> 
+<% if params[:comp] != "mycompany" %>
+<div class="new-button" style="margin-top:10px;"><%= link_to 'Turn Back', companies_path %></div>
+<% end %>
+

@@ -1,0 +1,4 @@
+<h3>Now Create a Admin user for <%= @company.name %></h3>
+<div>
+	<%= link_to l(:label_user_new), :controller => "users", :action => "new", :company_id => @company.id %>
+</div>

@@ -1,0 +1,96 @@
+ <% content_for :header_tags do %>
+ <%#= stylesheet_link_tag :foundation, :plugin => 'imeetdashboard' %>
+  <%= stylesheet_link_tag :imdashs, :plugin => 'imeetdashboard' %>
+<% end %>
+<h2>Hello <%= User.current.firstname %>&nbsp;<%= User.current.lastname %> </h2>
+<div class="splitcontenthometop">
+    
+  
+  <%#=render :partial => 'common/calendar_dash', :locals => {:calendar => @calendarLocal} %>
+   
+</div>
+
+<div class = "splitcontentdashleft">
+
+<% if @projects.count != 0 %>
+
+
+  <div class="splitcontenthomeleftproject">
+    <div class="pdash imeetprojectbox">
+   
+      <h3>My Projects</h3>
+   
+      <%=  render 'project_list' %>
+
+    </div>
+
+  </div>
+<% end %>
+
+ <% if @issuesAssignedToMe.count!= 0 %>
+
+  <div class="splitcontenthomeleft">
+     
+     <div class="codash imeetbox">
+
+     <h3><%="My All Issues "%></h3>
+    
+     <%= render "assigned_projects" %>
+
+    </div>
+   
+  </div>
+
+<% end %>
+<% if @tasksAssignedToMe.count != 0 %>
+
+  <div class="splitcontenthomeright" >
+      
+    <div class="tasklist imeetbox">
+     <h3><%="My All Tasks"%></h3>
+     
+      <%=  render 'tasklist' %>
+      </div>
+  </div>
+<% end %>
+
+ <% if @allFiles.count != 0 %> 
+ <%#= @allFiles.count %>
+  <div class="splitcontenthomeleft">
+    <div class="fdash imeetbox">
+     <h3><%= "Files" %></h3>
+      
+     <%= render 'imeetdashboard_files' %>
+    </div>
+
+  </div>
+ <% end %>
+
+</div>
+
+
+<% if @persons.count != 0 %> 
+<div class = "splitcontentdashright">
+  <div class="splitcontenthomemiddle">
+    <div class="cdash contactbox">
+      <h3>People</h3>
+      <%= render 'contactsOfImeet' %> 
+    </div>
+ 
+</div>
+
+
+</div>
+
+ <% end %>
+
+
+
+<% content_for :header_tags do %>
+<%= auto_discovery_link_tag(:atom, {:controller => 'news', :action => 'index', :key => User.current.rss_key, :format => 'atom'},
+                                   :title => "#{Setting.app_title}: #{l(:label_news_latest)}") %>
+<%= auto_discovery_link_tag(:atom, {:controller => 'activities', :action => 'index', :key => User.current.rss_key, :format => 'atom'},
+                                   :title => "#{Setting.app_title}: #{l(:label_activity)}") %>
+<% end %>
+
+

@@ -1,0 +1,39 @@
+<table class="tableFiles" >
+  <thead>   
+      <tr>
+          <th><b><%= "File Name" %></b></th>
+          <th><b><%= "Uploaded On" %></b></th>
+      </tr>
+ </thead>
+
+<tbody class="flbdy">
+
+<% files = Fileuser.where(user_id: User.current.id, permission_flag:2).pluck(:attachment_id) %>
+<% files<<Fileuser.where(user_id: User.current.id, permission_flag:1).pluck(:attachment_id) %>
+
+<% filelist = [] %>
+       <% files.each do |f| %>
+           <% unless filelist.include? f %>
+                <% filelist<<f %>
+           <% end %>   
+       <% end %>
+
+<% allFiles = LinkedFile.where(boxelement_id: filelist) %>
+          
+
+
+<% allFiles = allFiles.reverse.first(10) %>
+  <% for a in allFiles %>
+  
+    <tr class=" <%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to a.filename, a.file.url  %>
+      </td>
+      <td>
+        <%= a.created_at.strftime("%B %d, %Y") %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+

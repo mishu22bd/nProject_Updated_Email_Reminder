@@ -1,0 +1,36 @@
+<% firstName = User.where(id: params[:userId]).pluck(:firstname) %> 
+
+<% lastName = User.where(id: params[:userId]).pluck(:lastname) %>
+
+<% userId = params[:userId]%>
+<%  meetingId = params[:meetingId]    %>
+
+
+<% userId = params[:userId]%>
+<% g = Guest.where(invitee_id: meetingId, name: userId   )%>
+<% for x in g %>
+<% x.flag= false %>
+<% x.save %>
+<% end %>
+
+
+
+
+
+<p>
+Dear 
+<%firstName.each do |fname| %>
+<%= fname %>
+<% end %>
+<%lastName.each do |lname| %>
+<%= lname %>
+<% end %>,
+</p>
+
+
+
+
+
+You have been successfully unsubscribed from the meeting.
+<br />
+

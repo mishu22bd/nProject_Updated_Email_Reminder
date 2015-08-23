@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @boxelement.name %>
+</p>
+
+
+<p>
+  <b>Files:</b><br />
+</p>
+
+<table>
+  <thead><tr><th>Original Filename</th><th>Content Type</th><th>Link</th></tr></thead>
+  <tbody>
+    <% @boxelement.linked_files.each do |linked_file| -%>
+      <tr>
+        <td><%= linked_file.filename %></td>
+        <td><%= linked_file.mime_type %></td>
+        <td><%= link_to linked_file.file.url, linked_file.file.url %></td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_boxelement_path(@boxelement) %> |
+<%= link_to 'Back', boxelements_path %>

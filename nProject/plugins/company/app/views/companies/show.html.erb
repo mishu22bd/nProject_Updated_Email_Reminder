@@ -1,0 +1,85 @@
+
+
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'company', :plugin => 'company' %>
+<% end %>
+<style type="text/css">
+
+</style>
+<h2> Company Details</h2>
+<%#= @consultants.inspect %>
+<div class="com-detail">
+	<table class="company">
+		
+		<tr>
+			<td>Name</td>
+			<td> <%= @company.name %></td>
+		</tr> 
+		<tr>
+			<td>Email</td>
+			<td><%= @company.email %></td>
+		</tr>
+		<tr>
+			<td>Details</td>
+			<td><%= @company.description %></td>
+		</tr>
+		<tr>
+			<td>Company Logo</td>
+			<td><%= image_tag @company.avatar_url(:thumb)%></td>
+		</tr>
+		<tr>
+			<td>Company Consultants</td>
+			<td><ul class="com-user">
+			     <% count = 1 %>
+				<% for user in @consultants %>
+				<li><%= count %> ) <%= avatar(user, :size => "14") %> <%= link_to user.name, edit_user_path(user) %></li>
+				<% count += 1 %>
+				<% end %>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>Company Users</td>
+			<td><ul class="com-user">
+			     <% count = 1 %>
+				<% for user in @users %>
+				<li><%= count %> ) <%= avatar(user, :size => "14") %> <%= link_to user.name, edit_user_path(user) %></li>
+				<% count += 1 %>
+				<% end %>
+				</ul>
+			</td>
+		</tr>
+
+		<tr>
+			<td>Company Projects</td>
+			<td><ul class="com-user">
+			     <% count = 1 %>
+				<% for project in @projects %>
+				<li><%= count %> ) <%= link_to_project(project) %></li>
+				<% count += 1 %>
+				<% end %>
+				</ul>
+			</td>
+		</tr>
+	</table>
+
+
+
+
+
+	<div class="new-button" style="float:left; margin-top:10px;"><%= link_to 'Edit', edit_company_path(@company) %> </div>
+	<div class="new-button" style="float:left; margin-top:10px; margin-left: 20px;"><%= link_to 'Back', companies_path %></div>
+ 
+</div>
+
+<div class="add-user" >
+  <div class="new-button" style="width:100%;"> 
+    <%= link_to 'Add Company user', :controller => "users", :action => "new", :company_id => @company.id %> 
+  </div>
+  <div class="new-button" style="width:100%;"> 
+    <%= link_to "Add Consultant", new_consultant_path(:my_company => {:company_id => @company.id})%>
+  </div>
+  <div class="new-button" style="width:100%;"> 
+   <%= link_to "Add Project", :controller => 'projects', :action => 'new', :company_id => @company.id %>
+  </div>
+</div>

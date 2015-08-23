@@ -1,0 +1,143 @@
+<% content_for :header_tags do %>
+<%= javascript_include_tag "responsive-tables.js", :plugin => 'imeetdashboard'  %>
+<%= javascript_include_tag "sortable.js", :plugin => 'imeetdashboard' %>
+<%= javascript_include_tag "u_table.js", :plugin => 'imeetdashboard' %>
+<%= stylesheet_link_tag "responsive-tables.css", :plugin => 'imeetdashboard' %>
+<%= stylesheet_link_tag "imdashs.css", :plugin => 'imeetdashboard' %>
+
+<%#= javascript_include_tag "jquery.tablesorter.min.js", :plugin => 'imeetdashboard' %>
+
+
+<% end %>
+<h2> Welcome <%= User.current.firstname %>&nbsp;<%= User.current.lastname %> </h2>
+
+
+<div class = "splitcontentdashleft">
+
+<% if @projects.count != 0 %>
+  <div class="splitcontenthomeleftproject">
+    <div class="pdash imeetprojectbox">
+      <h3>Projects</h3>
+        <%=  render 'project_list' %>
+    </div>
+  </div>
+<% end %>
+
+<div class="tabs-dash">
+  <ul class="tab-links">
+    <li class="active"><a href="#tab1">Working Tasks & Issues</a></li>
+    <li><a href="#tab2">Tasks</a></li>
+    <li><a href="#tab3">Issues</a></li>
+   
+  </ul>
+  <div class="tab-content">
+    <div id="tab1" class="tab active">
+      <div class="splitcontenthomemiddle">
+        <div class="pdash imeetprojectbox">
+        <div id="view-link">
+        <div style="float:left"><h3>Related All Working Tasks & Issues</h3></div>
+        <div class="new-button" style="float:right;"><%= link_to "View All", :controller => 'issues', :action => 'index', :set_filter => 1, :assigned_to_id => 'me', :sort => 'priority:desc,updated_on:desc', :status_id => 'o', :work_content => 'Lowerlevel' %>
+        </div>
+        </div>
+      
+          <%= render :partial => "issuesassignedtome", :locals => { :user => @user } %>
+        </div>
+      </div> 
+    </div>
+    <div id="tab2" class="tab">
+      <% if tasks_only.count!= 0 %>
+        <div class="splitcontenthomemiddle" >
+        <div class="tasklist imeetprojectbox">
+        <div id="view-link">
+        <div style="float:left"><h3>Related Tasks</h3></div>
+        <div class="new-button" style="float:right;"><%= link_to "View All", :controller => 'imdashs', :action => 'tasks' %></div>
+        </div>
+     
+          <% tasks = tasks_only %>
+          <%=  render :partial => "tasklist" , :locals => { :my_tasks => tasks } %>
+        </div>
+        </div>
+      <% end %>
+    </div>
+    <div id="tab3" class="tab">
+      <% if issues_only.count != 0 %>
+        <div class="splitcontenthomemiddle">
+          <div class="codash imeetprojectbox">
+            <div id="view-link">
+              <div style="float:left"><h3>Related Issues</h3></div>
+              <div class="new-button" style="float:right;"><%= link_to "View All", :controller => 'imdashs', :action => 'issues' %></div>
+            </div>
+              <% issues = issues_only %>
+              <%= render :partial => "assigned_projects", :locals => { :my_issues => issues } %>
+          </div>
+        </div>
+      <% end %> 
+    </div>
+    
+  </div>
+</div>
+<!-- end tabs -->
+ 
+
+ <div class="clear"></div>
+
+
+
+<div class="splitcontenthomeleftproject">
+  <div class="cadash imeetbox">
+    <%= render :partial => "calendar", :locals => { :user => @user } %>
+  </div>
+</div>
+ 
+
+</div>
+
+
+<% if @persons.count != 0 %> 
+<div class = "splitcontentdashright">
+  <div class="splitcontenthomemiddle">
+    <div class="cdash contactbox">
+      <h3>People</h3>
+      <%= render 'contactsOfImeet' %> 
+    </div>
+ 
+</div>
+
+
+
+
+<% if @allFiles.count != 0 %> 
+
+  <div class="fdash imeetprojectbox">
+    <div id="view-link">
+      <div style="float:left"><h3>(KM) Files</h3></div>
+        <div class="new-button" style="float:right; width: 20%;"><%= link_to  "View All", {:controller => 'fileviews', :action => 'index'}, :caption => "File", :method => :get,  :if => Proc.new { User.current.logged? } %>
+        </div>
+    </div>
+    <%= render 'imeetdashboard_files' %> 
+  </div>
+        
+</div>
+<% end %>
+<% end %>
+
+
+
+
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('.tabs-dash .tab-links a').on('click', function(e)  {
+        var currentAttrValue = jQuery(this).attr('href');
+ 
+        // Show/Hide Tabs
+        jQuery('.tabs-dash ' + currentAttrValue).show().siblings().hide();
+ 
+        // Change/remove current tab to active
+        jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+ 
+        e.preventDefault();
+    });
+});
+</script>
+

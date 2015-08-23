@@ -1,0 +1,29 @@
+
+<%= error_messages_for 'company' %>
+
+    <%= form_for @company, :html => {:multipart => true} do |f| %>
+     <fieldset class="box tabular">
+     <legend> Company Data</legend>
+     <% if params[:comp].present? %>
+     <%= hidden_field_tag :redirect_location, '/mycompany' %>
+     <% end %>
+     <p> <%= f.label :name %>
+      <%= f.text_field :name %> </p>
+
+     <p> <%= f.label :email %>
+      <%= f.text_field :email %></p>
+
+     <p>  <%= f.label :description, :rows => 2 %>
+     <%= f.text_area :description  %></p>
+
+    <p><%= f.label :contact_no, 'Contact No' %>
+    <%= f.text_field :contact_no %></p>
+
+    <p><%= f.label :avatar, 'Upload Logo' %>
+    <%= f.file_field :avatar %></p>
+</fieldset>
+     <div class="actions">
+      <%= f.submit %>
+      </div>
+    <% end %>
+    

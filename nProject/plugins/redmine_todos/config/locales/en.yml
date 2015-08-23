@@ -1,0 +1,47 @@
+# English strings go here for Rails i18n
+en:
+  project_module_todos_module: "Tasklist"
+
+  label_todo_plural: Task lists
+  label_todo_list_plural: Task lists
+
+  label_add_todo_list: Add a task 
+  label_new_todo_list_input_placeholder: Give your task list a title
+  label_save_new_list: Save and start adding task
+  label_or: or
+  label_cancel: Cancel
+
+  label_edit: Edit
+  label_delete: Delete
+  label_save_changes: Save changes
+
+  label_add_a_todo: Add a task
+  label_add_this_todo: Add this task
+  label_add_new_todo_placeholder: Add a new task
+  label_done_adding_todos: I'm done adding task
+
+  label_todo_list_uncompleted_todo_status: Uncompleted task should be reflected by which issue status?
+  label_todo_list_completed_todo_status:   Completed task should be reflected by which issue status?
+  label_todos_default_tracker:             Default tracker for each issue created by this plugin
+  error_no_tracker_in_project_or_plugin:   No tracker is associated to this project. Please check the Project settings AND also the plugin settings (admin -> plugins -> redmine task list 
+
+  label_add_first_todo_list: Add your first task list !
+  label_configure_plugin:    You have to configure this plugin before using it - go to admin > plugins > Task lists and choose your preferences!
+
+  label_unassigned: Unassigned
+  label_set_due_date: "Set the due date"
+  label_no_due_date: "No due date"
+  label_assign_this_todo_to: "Assign this task to"
+  label_completed_at: "Completed at"
+  label_ajax_error: "Sorry, there was an error while processing your request! Check browser's or webrick's console or server logs for more details."
+  label_insufficient_permissions: "You don't have permissions to perform this action"
+
+  label_make_this_todo_private: "Make this task private"
+
+  permission_view_todo_lists: "View task lists"
+  permission_create_todo_lists: "Create task lists"
+  permission_update_todo_lists: "Update task lists"
+  permission_delete_todo_lists: "Delete task lists"
+  permission_create_todos: "Create Tasks"
+  permission_update_todos: "Update Tasks"
+  permission_delete_todos: "Delete Tasks"

@@ -1,0 +1,45 @@
+
+
+<p>
+  <b>Name:</b>
+  <%= @invite.name %>
+  <br />
+
+
+  
+
+  <b>Description:</b>
+  <%= @invite.description %>
+  <br />
+
+
+  <b>Created At:</b>
+  <%= @invite.created_at %>
+  <br />
+
+
+  <b>Start from:</b>
+  <%= @invite.start_from %>
+  <br />
+  
+
+  <b>Duration:</b>
+  <%= @invite.duration %>
+  <%= " Minutes" %>
+  <br />
+  
+ <b>Callee list: </b><br />
+  <% for invitee in @invite.invitees %>
+  <% invitee.name %>
+  <% end %>
+
+<% #i = 0 %>
+<% @values.each { |a, value| %>
+<%#  key = ":"+a %>
+<li><%= a %></li>
+<% } %>
+<%# end %>
+ 
+  
+  
+</p>

@@ -1,0 +1,93 @@
+<% if issues && issues.any? %>
+<% lol = [] %>
+<% issues.each do |i| %>
+<% if i.parent_id? %>
+<% lol << i.parent_id %>
+<% end %>
+<% end %>
+<%#= lol %>
+<% issues = issues.reject{|s| lol.uniq.include? s.id } %>
+<table class="tableWork" >
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th><%=l(:field_project)%></th>
+        <th><%=l(:field_tracker)%></th>
+        <th><%=l(:field_subject)%></th>
+        <th><%= "Due Date"%></th>
+        <%#=l(:field_updated_on)%>
+        <th>Progress status</th>
+        </tr>
+    </thead>
+    
+    <tbody class= "wrkbdy">
+    <% for i in issues %>
+    <tr class=" <%= cycle('odd', 'even') %> <%= i.css_classes %>">
+      <td class="id">
+        <%= check_box_tag("ids[]", i.id, false, :style => 'display:none;', :id => nil) %>
+        <%= link_to i.project_issue_id, issue_path(i) %>
+      </td>
+      <td ><%= link_to_project(i.project) %></td>
+      <td ><%=h i.tracker %></td>
+      <td>
+        <%= link_to truncate(i.subject, :length => 60), issue_path(i) %> (<%=h i.status %>)
+      </td>
+       <td> <%= i.due_date %></td>
+      <%#= i.updated_on.to_date %>
+        <% if i.due_date!= nil %>
+        <% sub_date = (i.due_date - i.updated_on.to_date ).to_i  %>
+        <% end %>
+      <td >
+       <% if sub_date!= nil && sub_date < 0  %>
+          <%#= image_tag '/plugin_assets/imeetdashboard/images/red.jpg', :size  => '22x22' %> 
+      <div class="nice round progresswork alert large-10"> 
+      <span class="meter" style="width: <%= i.done_ratio %>%"><%= i.done_ratio %>%</span> 
+      </div>
+     <% elsif sub_date!= nil && sub_date >= 2   %>
+          <%#= image_tag '/plugin_assets/imeetdashboard/images/green.jpg', :size  => '22x22' %> 
+      <div class="nice round progresswork large-6"> 
+      <span class="meter" style="width: <%= i.done_ratio %>%"><%= i.done_ratio %>%</span> 
+      </div>
+     <% elsif sub_date!= nil && sub_date == 1 && i.done_ratio <= 80  %>
+          <%#= image_tag '/plugin_assets/imeetdashboard/images/yellow.jpg', :size  => '22x22' %> 
+      <div class="nice round progresswork success large-10"> 
+      <span class="meter" style="width: <%= i.done_ratio %>%"><%= i.done_ratio %>%</span> 
+      </div>
+
+     <% elsif sub_date!= nil && sub_date == 1 && i.done_ratio >= 80  %>
+          <%#= image_tag '/plugin_assets/imeetdashboard/images/green.jpg', :size  => '22x22' %> 
+      <div class="nice round progresswork large-6"> 
+      <span class="meter" style="width: <%= i.done_ratio %>%"><%= i.done_ratio %>%</span> 
+      </div> 
+
+     <% elsif sub_date!= nil && sub_date == 0 && i.done_ratio != 100 %>
+          <%#= image_tag '/plugin_assets/imeetdashboard/images/red.jpg', :size  => '22x22' %> 
+      <div class="nice round progresswork alert large-10"> 
+      <span class="meter" style="width: <%= i.done_ratio %>%"><%= i.done_ratio %>%</span> 
+      </div>
+
+     <% elsif sub_date!= nil && sub_date == 0 && i.done_ratio == 100 %>
+          <%#= image_tag '/plugin_assets/imeetdashboard/images/green.jpg', :size  => '22x22' %> 
+      <div class="nice round progresswork large-6"> 
+      <span class="meter" style="width: <%= i.done_ratio %>%"><%= i.done_ratio %>%</span> 
+      </div> 
+
+     <% end %> 
+
+      </td>
+    </tr>
+    <% end %>
+
+    </tbody>
+</table>
+<div id="pageNavPosition"></div>
+<%end%>
+   <!-- <select id = "pagesize "class="pagesize">
+            <option value="8">8</option>
+            <option value="16">16</option>
+            <option value="24">24</option>
+            <option value="32">32</option>
+            <option selected="selected" value="999">all</option>
+        </select>
+ -->
+

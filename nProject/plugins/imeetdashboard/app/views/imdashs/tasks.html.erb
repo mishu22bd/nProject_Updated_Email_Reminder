@@ -1,0 +1,16 @@
+<% content_for :header_tags do %>
+
+<%= javascript_include_tag :"jquery.tablesorter.min.js", :plugin => 'imeetdashboard' %>
+<%= javascript_include_tag :"jquery.tablesorter.pager.js", :plugin => 'imeetdashboard' %>
+<%= stylesheet_link_tag :"imdashs_sort.css", :plugin => 'imeetdashboard' %>
+
+<% end %>
+
+
+<% if @tasks && @tasks.any? %>
+<%= render :partial=> "mytasks" , :locals => {:tasks => @tasks, :query => @query }%>
+<%#=  render :partial => "mytasks" , :locals => { :tasks => @tasks, :query => @query } %>
+<% end %>
+<%= context_menu issues_context_menu_path %>
+
+

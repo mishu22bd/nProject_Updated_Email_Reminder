@@ -1,0 +1,50 @@
+<h1>Edit Description</h1>
+
+
+<%= form_for (@boxelement) do |f| %>
+    
+<div class="field">
+	<%= f.label :name, "Description" %> <br />
+	<%= f.text_area :name, :cols => 34, :rows => 5  %>
+</div>
+
+
+
+
+<div class = "field">
+<% f.hidden_field :author_id, :value =>User.current.id %>
+
+</div>
+
+
+<% if f.object.linked_files.size == 0 -%>
+
+    <div class="field">
+      <% f.label :files %><br />
+      <% f.file_field :files, :multiple => true %>
+    </div>
+
+
+
+
+
+
+
+
+  <% else -%>
+
+
+  <% end -%>
+
+  <br />
+  <br />
+<div class= "field">
+
+
+   <% f.check_box :private_flag, {}, 1,0 %> <% "Make the file private" %>
+</div>
+  <div class="actions">
+    <%= f.submit "Update"%>
+  </div>
+<% end %>
+

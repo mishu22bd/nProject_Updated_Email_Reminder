@@ -1,0 +1,36 @@
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'company', :plugin => 'company' %>
+<% end %>
+
+
+<h2>Compnay List</h2>
+<div class="autoscroll">
+<table class="list">
+<thead>
+	<th>Name</th>
+	<th>Email</th>
+	<th>Contact</th>
+	<th colspan="2"></th>
+</tr>
+</thead>
+<tbody>
+	<% for company in @companies %>
+	<tr class = "<%= cycle("odd", "even") %>">
+		<td class="user" style = "text-align:left;"><%= image_tag(company.avatar_url, :width => 14, :height => 14) %> <%= link_to company.name, company %></td>
+		<td class="email" style = "text-align:left;"><%= company.email %></td>
+		<td class="user" style = "text-align:left;"><%= company.contact_no %></td>
+		<td class="button"><%= link_to 'Edit', edit_company_path(company) %> </td>
+		<td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+	</tr>
+	<% end %>
+</tbody>
+</table>
+
+</div>
+
+<div class="new-button">
+  <% if User.current.login == 'admin' %>
+	  <%= link_to "Add New", sign_up_path %>
+	<% end %>
+
+</div>

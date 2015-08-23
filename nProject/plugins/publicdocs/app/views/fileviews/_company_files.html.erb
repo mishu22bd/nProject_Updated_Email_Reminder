@@ -1,0 +1,69 @@
+<h1>Company Files</h1>
+<% url = url_for(:controller => 'boxelements', :action => 'new', :company_id => User.current.companies_id, :author_id => User.current.id, :publicall => 0)  %>
+ <div class="new-button" style="float:right; width: 10%; margin-top:-40px;">
+                     <%= link_to "Upload New File",url %>
+                     </div>
+
+
+
+<table class="list files">
+  
+  <tr bgcolor="#eaeaea">
+    <td class="filename"><b><%= "File Name" %></b></td>
+    <td class="filename"><b><%= "Description" %></b></td>
+    <td class="filename"><b><%= "Created On" %><b></td>
+  </tr>
+
+
+<% @company_files = @company_files.reverse %>
+<% for a in @company_files %>
+
+    <% box_id = a.boxelement_id %>
+    <% box = Boxelement.where(id: box_id) %>
+    <% file_permissions =  Fileuser.where(attachment_id: box_id, user_id: User.current.id).pluck(:permission_flag) %>
+    
+
+  <tr class="file <%= cycle("odd", "even") %>">
+    <td class="filename" ><%= link_to a.filename, a.file.url  %></td>
+        <td class="filename" >
+            <% descriptions = Boxelement.where(id: a.boxelement_id).pluck(:name) %>
+            <% descriptions.each do |d|%>
+              <%= d %>
+              <% end %>        
+        </td>
+        
+    <td class="filename" ><%= a.created_at.strftime("%B %d, %Y") %></td>
+
+    <td class="borderlesstd">
+    <% company_id = Boxelement.where(id: box_id).pluck(:company_id) %>
+
+    <% urlv = url_for(:controller => 'fileviews', :action => 'visibility' , :f_id => box_id) %>
+
+    <% company_users = User.where(companies_id: User.current.companies_id) %>
+
+          <% if file_permissions[0]==2 && company_users.count>1 %>
+              <%= link_to("Permission", urlv ) %> 
+          <% end  %>     
+     </td> 
+
+
+     <td class="borderlesstd">
+      <% if file_permissions[0]==2 %>
+        <%= link_to(image_tag('delete.png'), box[0],  method: :delete, data: { confirm: 'Are you sure?' }) %>
+      <% end %>                        
+     </td>
+
+
+
+
+
+     
+  
+
+  </tr>
+
+  <%end %>
+  
+
+
+</table>

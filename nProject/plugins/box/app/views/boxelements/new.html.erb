@@ -1,0 +1,15 @@
+<h1>Upload File to 
+<% if params[:company_id] %>
+<% @company_id = params[:company_id] %>
+<% @company = Company.find(@company_id) %>
+<%= @company.name %>
+<% else %>
+<% project = Project.where(id: params[:project_id]).pluck(:name) %>
+<% project.each do |p| %>
+<%= p %>
+<% end %>
+<% end %>
+</h1>
+
+<%= render 'form' %>
+

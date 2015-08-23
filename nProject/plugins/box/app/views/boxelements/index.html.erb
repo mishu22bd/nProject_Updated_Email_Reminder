@@ -1,0 +1,29 @@
+<h1>Listing boxelements</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% @boxelements.each do |boxelement| %>
+  <tr>
+    <td><%= boxelement.name %></td>
+      <td><%= link_to 'Show', boxelement %></td>
+    <td><%= link_to 'Edit', edit_boxelement_path(boxelement) %></td>
+    <td><%= link_to 'Destroy', boxelement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% link_to "New Box",new_boxelement_path %>
+
+<%=  @project %>
+<% url = url_for(:controller => 'boxelements', :action => 'new', :project_id => 1, :author_id => 1)  %>
+
+<%= link_to "Upload New File",url %>
+
+
+<%= @project %>
